@@ -4,10 +4,10 @@ import { writable } from 'svelte/store';
  * Creates the pokedex store
  */
 const createPokedex = () => {
-  const {subscribe, set, update} = writable(JSON.parse(localStorage.getItem('pokedex')) || {});
+  const {subscribe, update} = writable(JSON.parse(localStorage.getItem('pokedex')) || {});
 
   /**
-   * Sets and stores pokedex to store and local storage overriding the default store set
+   * Adds card to store and local storage overriding
    * @param  card
    */
   const add = (card) => {
@@ -21,9 +21,9 @@ const createPokedex = () => {
     })
   };
 
-  const remove = (cardId) => {
+  const remove = (card) => {
     update((pokedex) => {
-      delete pokedex[cardId];
+      delete pokedex[card.id];
       save(pokedex)
       return pokedex;
     })

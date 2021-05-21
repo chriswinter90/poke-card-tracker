@@ -1,8 +1,8 @@
 <script>
   import { pokemon } from '../store/pokemon';
-  import { pokedex } from '../store/pokedex'
   import Set from '../components/Set.svelte';
-  import { fade, slide } from 'svelte/transition';
+  import PokeCard from '../components/PokeCard.svelte';
+  import { pokedex } from "../store/pokedex";
 
   let filter = '';
 
@@ -26,19 +26,17 @@
 
 
     {#if $pokemon.currentSetId}
-      <div class="">
+      <div class="sets__card-set-header">
         <h2>Cards Within Set:</h2>
         <h4>(Click to add to your collection)</h4>
         <input bind:value={filter} placeholder="Filter by name">
       </div>
       <div class="sets__cards">
         {#each cardList as card}
-          <div
-            on:click={addCardToPokedex(card)}
-            class="pokemon-card hover-grow"
-            transition:fade={{duration: 200}}>
-            <img alt="pokemon card" src={card.images.small}>
-          </div>
+          <PokeCard
+            pokeCard="{card}"
+            onClickFunction={addCardToPokedex}
+          ></PokeCard>
         {/each}
       </div>
     {/if}
@@ -52,8 +50,8 @@
     flex-wrap: wrap;
     justify-content: space-around;
   }
-  .pokemon-card {
-    padding: 5px;
-    cursor: pointer;
+
+  .sets__card-set-header {
+    margin-bottom: 20px
   }
 </style>
